@@ -1,6 +1,7 @@
 $(function() {
   $videoLIs = $('span.video').parent();
   $resultsList = $('ul#patran-video-search-results')
+  $spinner = $('#patran-video-search .spinner')
   var searchTerms = '';
 
   function debounce(func, wait, immediate) {
@@ -19,12 +20,7 @@ $(function() {
   };
 
   function updateForm($form) {
-    var formname = $form.find('.searched-term');
-    //store in a variable to reduce repetition
     searchTerms = $form.find('#vid-search-input').val();
-    // var n_input = $form.find('#vid-search-input').val();
-    // formname.empty();
-    // formname.append(n_input);
     updateResults();
   }
 
@@ -33,18 +29,19 @@ $(function() {
       $resultsList.empty()
       return
     }
+    $spinner.show()
     var $results = $videoLIs.filter(function() {
       var tags = $(this).data('tags')
       if (tags && tags.includes(searchTerms)) {
-        return $(this)
+        return $(this).css('display', 'none')
       }
     })
-    $resultsList.append($results)
+    $results.appendTo($resultsList).fadeIn('slow', function() {
+      $spinner.hide()
+    })
   }
 
-  var videoSearch = debounce(function(e) {
+  $('#patran-video-search').keyup(debounce(function(e) {
     updateForm($(this))
-  }, 300);
-
-  $('#patran-video-search').keyup(videoSearch);
+  }, 300));
 });

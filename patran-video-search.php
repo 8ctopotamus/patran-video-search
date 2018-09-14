@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  */
 // Register all scripts and styles up front.
 function patran_video_search_register_all_scripts() {
-	// wp_register_style('patran-video-search-styles', plugins_url( 'css/video-search.css',  __FILE__ ));
+	wp_register_style('patran-video-search-styles', plugins_url( 'css/video-search.css',  __FILE__ ));
 	wp_register_script('patran-video-search-js', plugin_dir_url( __FILE__ ) . 'js/video-search.js', '', '', true );
 }
 add_action('wp_loaded', 'patran_video_search_register_all_scripts' );
@@ -26,9 +26,19 @@ add_action('wp_loaded', 'patran_video_search_register_all_scripts' );
  * Frontend UI
  */
 function patran_video_search_shortcode_func( $atts ) {
-	// wp_enqueue_style('patran-video-search-styles');
+	wp_enqueue_style('patran-video-search-styles');
 	wp_enqueue_script('patran-video-search-js');
-	include('templates/video-search.php');
+	?>
+		<div id="patran-video-search">
+			<label for="vid-search-input">Search videos:</label>
+		  <input id="vid-search-input" type="search" />
+			<div class="spinner" style="display: none	;">
+			  <div class="double-bounce1"></div>
+			  <div class="double-bounce2"></div>
+			</div>
+		</div>
+		<ul id="patran-video-search-results"></ul>
+	<?php
 	return;
 }
 add_shortcode( 'patran-video-search', 'patran_video_search_shortcode_func' );
