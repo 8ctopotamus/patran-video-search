@@ -32,11 +32,12 @@ function patran_video_search_shortcode_func( $atts ) {
 		<div id="patran-video-search">
 			<label for="vid-search-input">Search videos:</label>
 		  <input id="vid-search-input" type="search" />
-			<div class="spinner" style="display: none	;">
+			<div class="spinner">
 			  <div class="double-bounce1"></div>
 			  <div class="double-bounce2"></div>
 			</div>
 		</div>
+		<ul id="patran-suggest-search-terms"></ul>
 		<ul id="patran-video-search-results"></ul>
 	<?php
 	return;
