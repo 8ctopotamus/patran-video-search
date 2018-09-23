@@ -1,10 +1,11 @@
 $(function() {
-  $searchInput = $('#patran-video-search input')
-  $videoLIs = $('span.video').parent()
-  $resultsList = $('ul#patran-video-search-results')
-  $spinner = $('#patran-video-search .spinner')
-  var $suggestSearchTerms = $('#patran-suggest-search-terms')
+  // video search
   var searchTerms = ''
+  var $searchInput = $('#patran-video-search input')
+  var $videoLIs = $('span.video').parent()
+  var $resultsList = $('ul#patran-video-search-results')
+  var $spinner = $('#patran-video-search .spinner')
+  var $clearBtn = $('.clear-video-search')
 
   function debounce(func, wait, immediate) {
   	var timeout
@@ -38,10 +39,39 @@ $(function() {
         return $(this).css('display', 'none')
       }
     })
-    $results.appendTo($resultsList).fadeIn('slow', function() {
-      $spinner.hide()
-    })
+    if ($results.length > 0) {
+      $results.appendTo($resultsList).fadeIn('slow', function() {
+        $spinner.hide('slow')
+      })
+    } else {
+      $resultsList.empty()
+      $resultsList.append($('<p>No videos found.</p>')).fadeIn('slow', function() {
+        $spinner.hide('slow')
+      })
+    }
   }
+
+  $searchInput.keyup(debounce(function(e) {
+    updateForm()
+  }, 300))
+
+
+  // clear form button
+  function clearForm() {
+    $searchInput.val('')
+  }
+  $clearBtn.on('click', clearForm)
+
+
+  // accordion
+  function toggleAccordion() {
+    $suggestSearchTerms.toggleClass('show')
+  }
+  $('.patran-accordion-title').on('click', toggleAccordion)
+
+  // suggested search terms
+  var $suggestSearchTerms = $('#patran-suggest-search-terms')
+  var $termsLIs = []
 
   function populateSearchTerm() {
     $resultsList.empty()
@@ -49,21 +79,16 @@ $(function() {
     updateForm()
   }
 
-  $searchInput.keyup(debounce(function(e) {
-    updateForm()
-  }, 300))
-
-  // generates list of search terms,
-  // based off of tags used in the html
   $videoLIs.each(function() {
     var tags = $(this).data('tags')
-    if (!tags) return
-
-    tags.split(',').forEach(function(tag) {
-      var $li = $('<li>' + tag + '</li>')
-      $li.on('click', populateSearchTerm)
-      $suggestSearchTerms.append($li)
-    })
-
+    if (tags) {
+      tags.split(',').forEach(function(tag) {
+        var $li = $('<li>' + tag + '</li>')
+        $li.on('click', populateSearchTerm)
+        $termsLIs.push($li)
+      })
+    }
   })
+  $suggestSearchTerms.append($termsLIs)
+
 })

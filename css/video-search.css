@@ -40,7 +40,7 @@
   }
 }
 
-#patran-video-search {
+.patran-video-search-input-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -50,6 +50,38 @@
   margin-right: 5px;
 }
 
+#vid-search-input {
+  height: 40px;
+  width: 200px;
+  border: 1px solid #c3c3c3;
+  border-radius: 4px 0px 0px 4px;
+}
+
+.clear-video-search {
+  /* display: none; */
+  border-radius: 0px 4px 4px 0px;
+}
+
+#patran-video-search-results {
+  margin-top: 25px;
+  margin-left: 1em;
+}
+
+.patran-accordion {
+  float: right;
+  text-align: right;
+}
+
+#patran-suggest-search-terms {
+  display: none;
+  margin-left: 1em;
+}
+
+#patran-suggest-search-terms.show {
+  display: block;
+}
+
+.patran-accordion .patran-accordion-title:hover,
 #patran-suggest-search-terms li:hover {
   cursor: pointer;
   color: #6C3;

@@ -30,15 +30,27 @@ function patran_video_search_shortcode_func( $atts ) {
 	wp_enqueue_script('patran-video-search-js');
 	?>
 		<div id="patran-video-search">
-			<label for="vid-search-input">Search videos:</label>
-		  <input id="vid-search-input" type="search" />
-			<div class="spinner">
-			  <div class="double-bounce1"></div>
-			  <div class="double-bounce2"></div>
+			<div class="patran-accordion">
+				<small class="patran-accordion-title">Suggested search terms</small>
+				<ul id="patran-suggest-search-terms"></ul>
 			</div>
+			<label for="vid-search-input">Search videos:</label>
+			<div class="patran-video-search-input-wrap">
+				<input id="vid-search-input" type="search" />
+				<button
+					class="clear-video-search"
+					name="clear-video-search"
+					aria-label="Clear video search input"
+					title="Clear search"
+					type="button"
+				>&times;</button>
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+			</div>
+			<ul id="patran-video-search-results"></ul>
 		</div>
-		<ul id="patran-suggest-search-terms"></ul>
-		<ul id="patran-video-search-results"></ul>
 	<?php
 	return;
 }
