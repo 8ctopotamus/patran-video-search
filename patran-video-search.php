@@ -31,7 +31,7 @@ function patran_video_search_shortcode_func( $atts ) {
 	?>
 		<div id="patran-video-search">
 			<div class="patran-accordion">
-				<small class="patran-accordion-title">Suggested search terms</small>
+				<p class="patran-accordion-title">Suggested search terms</p>
 				<ul id="patran-suggest-search-terms"></ul>
 			</div>
 			<label for="vid-search-input">Search videos:</label>

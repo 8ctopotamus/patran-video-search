@@ -34,7 +34,8 @@ $(function() {
     }
     $spinner.show()
     var $results = $videoLIs.filter(function() {
-      var tags = $(this).data('tags')
+      // var tags = $(this).data('tags')
+      var tags = $(this).first().text().toLowerCase()
       if (tags && tags.includes(searchTerms)) {
         return $(this).css('display', 'none')
       }
@@ -55,13 +56,10 @@ $(function() {
     updateForm()
   }, 300))
 
-
   // clear form button
-  function clearForm() {
+  $clearBtn.on('click', function() {
     $searchInput.val('')
-  }
-  $clearBtn.on('click', clearForm)
-
+  })
 
   // accordion
   function toggleAccordion() {
@@ -71,7 +69,7 @@ $(function() {
 
   // suggested search terms
   var $suggestSearchTerms = $('#patran-suggest-search-terms')
-  var $termsLIs = []
+  var terms = []
 
   function populateSearchTerm() {
     $resultsList.empty()
@@ -79,16 +77,23 @@ $(function() {
     updateForm()
   }
 
+  // find all tags
   $videoLIs.each(function() {
     var tags = $(this).data('tags')
     if (tags) {
       tags.split(',').forEach(function(tag) {
-        var $li = $('<li>' + tag + '</li>')
-        $li.on('click', populateSearchTerm)
-        $termsLIs.push($li)
+        if (!terms.includes(tag)) {
+          terms.push(tag)
+        }
       })
     }
   })
-  $suggestSearchTerms.append($termsLIs)
 
+  var termsLis = []
+  terms.forEach(function(tag) {
+    var $li = $('<li>' + tag + '</li>')
+    $li.on('click', populateSearchTerm)
+    termsLis.push($li)
+  })
+  $suggestSearchTerms.append(termsLis)
 })
