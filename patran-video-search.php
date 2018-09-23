@@ -2,7 +2,7 @@
 /*
   Plugin Name: Patran Video Search
   Plugin URI:  https://zylocod.es
-  Description: A video search Vue component.
+  Description: A video search component.
   Version:     1.0
   Author:      Zylo, LLC
   Author URI:  https://zylocod.es
@@ -30,10 +30,6 @@ function patran_video_search_shortcode_func( $atts ) {
 	wp_enqueue_script('patran-video-search-js');
 	?>
 		<div id="patran-video-search">
-			<div class="patran-accordion">
-				<p class="patran-accordion-title">Suggested search terms</p>
-				<ul id="patran-suggest-search-terms"></ul>
-			</div>
 			<label for="vid-search-input">Search videos:</label>
 			<div class="patran-video-search-input-wrap">
 				<input id="vid-search-input" type="search" />

@@ -34,7 +34,6 @@ $(function() {
     }
     $spinner.show()
     var $results = $videoLIs.filter(function() {
-      // var tags = $(this).data('tags')
       var tags = $(this).first().text().toLowerCase()
       if (tags && tags.includes(searchTerms)) {
         return $(this).css('display', 'none')
@@ -60,40 +59,4 @@ $(function() {
   $clearBtn.on('click', function() {
     $searchInput.val('')
   })
-
-  // accordion
-  function toggleAccordion() {
-    $suggestSearchTerms.toggleClass('show')
-  }
-  $('.patran-accordion-title').on('click', toggleAccordion)
-
-  // suggested search terms
-  var $suggestSearchTerms = $('#patran-suggest-search-terms')
-  var terms = []
-
-  function populateSearchTerm() {
-    $resultsList.empty()
-    $searchInput.val($(this).text())
-    updateForm()
-  }
-
-  // find all tags
-  $videoLIs.each(function() {
-    var tags = $(this).data('tags')
-    if (tags) {
-      tags.split(',').forEach(function(tag) {
-        if (!terms.includes(tag)) {
-          terms.push(tag)
-        }
-      })
-    }
-  })
-
-  var termsLis = []
-  terms.forEach(function(tag) {
-    var $li = $('<li>' + tag + '</li>')
-    $li.on('click', populateSearchTerm)
-    termsLis.push($li)
-  })
-  $suggestSearchTerms.append(termsLis)
 })
